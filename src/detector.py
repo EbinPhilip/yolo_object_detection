@@ -92,3 +92,16 @@ class Detector:
 
         result = DetectionResult(inferenceTime, detectedObjects)
         return result
+
+    def drawBoundingBoxes(self, frame, detectedObjects):
+        for detectedObject in detectedObjects:
+            # Draw a bounding box.
+            box = detectedObject.box
+            cv.rectangle(frame, (box.left, box.top), (box.right, box.bottom), (255, 178, 50), 3)
+            label = '%s:%.2f' % (detectedObject.name, detectedObject.confidence)
+            # Display the label at the top of the bounding box
+            labelSize, baseLine = cv.getTextSize(label, cv.FONT_HERSHEY_SIMPLEX, 0.5, 1)
+            top = max(box.top, labelSize[1])
+            cv.rectangle(frame, (box.left, top - round(1.5 * labelSize[1])), (box.left + round(1.5 * labelSize[0]), top + baseLine),
+                        (255, 255, 255), cv.FILLED)
+            cv.putText(frame, label, (box.left, top), cv.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 0), 1)
