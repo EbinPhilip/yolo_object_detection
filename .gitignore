@@ -50,5 +50,8 @@ qtcreator-*
 # vscode
 .vscode/
 
+# yolo weighhs
+yolov3.*
+
 # Catkin custom files
 CATKIN_IGNORE
