@@ -29,12 +29,12 @@ while cv.waitKey(1) < 0:
         break
 
     detectionResult = detector.detectObjects(frame)
-    detector.drawBoundingBoxes(frame, detectionResult.detectedObjects.values())
+    detector.drawBoundingBoxes(frame, detectionResult)
 
-    # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and
-    # the timings for each of the layers(in layersTimes)
-    label = 'Inference time: %.2f ms' % (detectionResult.inferenceTime)
-    cv.putText(frame, label, (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
+    # # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and
+    # # the timings for each of the layers(in layersTimes)
+    # label = 'Inference time: %.2f ms' % (detectionResult.inferenceTime)
+    # cv.putText(frame, label, (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
 
     cv.imwrite(outputFile, frame.astype(np.uint8))
 
