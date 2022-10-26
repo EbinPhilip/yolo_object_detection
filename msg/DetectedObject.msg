@@ -1,0 +1,3 @@
+string name
+yolo_object_detection/BoundingBox box
+float64 confidence
