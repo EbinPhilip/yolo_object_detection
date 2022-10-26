@@ -50,7 +50,7 @@ class Detector:
                     boxes.append([left, top, width, height])
         # Perform non maximum suppression to eliminate redundant overlapping boxes with lower confidences.
         indices = cv.dnn.NMSBoxes(boxes, confidences, self.confThreshold, self.nmsThreshold)
-        detectedObjects = {}
+        detectedObjects = []
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -61,7 +61,7 @@ class Detector:
             objectBox = ObjectBox(left, top, left + width, top + height)
             name = self.classes[classIds[i]]
             obj = DetectedObject(name, objectBox, confidences[i])
-            detectedObjects.update({name:obj})
+            detectedObjects.append(obj)
         return detectedObjects
 
 
@@ -93,8 +93,8 @@ class Detector:
         result = DetectionResult(inferenceTime, detectedObjects)
         return result
 
-    def drawBoundingBoxes(self, frame, detectedObjects):
-        for detectedObject in detectedObjects:
+    def drawBoundingBoxes(self, frame, detectionResult):
+        for detectedObject in detectionResult.detectedObjects:
             # Draw a bounding box.
             box = detectedObject.box
             cv.rectangle(frame, (box.left, box.top), (box.right, box.bottom), (255, 178, 50), 3)
@@ -105,3 +105,7 @@ class Detector:
             cv.rectangle(frame, (box.left, top - round(1.5 * labelSize[1])), (box.left + round(1.5 * labelSize[0]), top + baseLine),
                         (255, 255, 255), cv.FILLED)
             cv.putText(frame, label, (box.left, top), cv.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 0), 1)
+        # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and
+        # the timings for each of the layers(in layersTimes)
+        label = 'Inference time: %.2f ms' % (detectionResult.inferenceTime)
+        cv.putText(frame, label, (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
