@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 from detector import Detector
 import rospy
@@ -8,9 +8,9 @@ from structs import DetectedObject
 from yolo_object_detection.msg import DetectedObject
 from yolo_object_detection.msg import DetectedObjectArray
 
-modelConfiguration = "yolov3.cfg"
-modelWeights = "yolov3.weights"
-classesFile = "coco.names"
+modelConfiguration = "/home/ebin/cv_ws/src/yolo_object_detection/yolov3.cfg"
+modelWeights = "/home/ebin/cv_ws/src/yolo_object_detection/yolov3.weights"
+classesFile = "/home/ebin/cv_ws/src/yolo_object_detection/coco.names"
 imagePublisher = None
 boundingBoxPublisher = None
 

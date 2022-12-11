@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 import rospy
 from detector import Detector
@@ -9,9 +9,9 @@ from yolo_object_detection.srv import ObjectDetection
 from yolo_object_detection.srv import ObjectDetectionResponse, ObjectDetectionRequest
 from yolo_object_detection.msg import DetectedObjectArray, DetectedObject
 
-modelConfiguration = "yolov3.cfg"
-modelWeights = "yolov3.weights"
-classesFile = "coco.names"
+modelConfiguration = "/home/ebin/cv_ws/src/yolo_object_detection/yolov3.cfg"
+modelWeights = "/home/ebin/cv_ws/src/yolo_object_detection/yolov3.weights"
+classesFile = "/home/ebin/cv_ws/src/yolo_object_detection/coco.names"
 imagePublisher = None
 cvBridge = CvBridge()
 

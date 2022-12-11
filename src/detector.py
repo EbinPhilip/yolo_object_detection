@@ -3,6 +3,8 @@ import cv2 as cv
 
 from structs import DetectedObject, ObjectBox, DetectionResult
 
+
+allowed = ['banana','apple', 'bottle', 'cup']
 class Detector:
     def __init__(self,
                  classesFilePath: str,
@@ -95,6 +97,8 @@ class Detector:
 
     def drawBoundingBoxes(self, frame, detectionResult):
         for detectedObject in detectionResult.detectedObjects:
+            if detectedObject.name not in allowed:
+                continue
             # Draw a bounding box.
             box = detectedObject.box
             cv.rectangle(frame, (box.left, box.top), (box.right, box.bottom), (255, 178, 50), 3)
